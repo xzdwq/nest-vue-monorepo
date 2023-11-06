@@ -43,13 +43,37 @@ async function bootstrap() {
 		optionsSuccessStatus: 204,
 	});
 
-  morgan.format('combined', loggerConfig.morganFormat)
-  app.use(morgan('combined', {
+  // morgan.format('combined', loggerConfig.morganFormat)
+  // app.use(morgan('combined', {
+  //   skip: (req: any, res: any) => res.statusCode >= 400,
+  //   stream: {
+  //     write: (message: string) => {
+	// 			loggerConfig.httpResolveLog
+	// 				? logger.http(message)
+	// 				: null;
+	// 		}
+  //   }
+  // }));
+	app.use(morgan((tokens: any, req: any, res: any) => {
+		return JSON.stringify({
+      user: tokens.user(req, res),
+			httpVersion: tokens['http-version'](req, res),
+			remoteAddr: tokens['remote-addr'](req, res),
+			remoteUser: tokens['remote-user'](req, res),
+			referrer: tokens.referrer(req, res),
+      method: tokens.method(req, res),
+      url: tokens.url(req, res),
+      status: Number.parseFloat(tokens.status(req, res)),
+      responseTime: Number.parseFloat(tokens['response-time'](req, res)),
+			userAgent: tokens['user-agent'](req, res),
+    });
+	}, {
     skip: (req: any, res: any) => res.statusCode >= 400,
     stream: {
       write: (message: string) => {
+				const data = JSON.parse(message);
 				loggerConfig.httpResolveLog
-					? logger.http(message)
+					? logger.http(data)
 					: null;
 			}
     }

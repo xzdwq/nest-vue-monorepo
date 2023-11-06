@@ -7,7 +7,7 @@ export type LoggerConfig = {
   dbContext: string;
   httpResolveLog: boolean;
   defaultUserMask: string;
-  morganFormat: string;
+  // morganFormat: string;
   fileName: string;
   auditFile?: string;
   datePattern: string;
@@ -24,9 +24,9 @@ export const loggerConfig: LoggerConfig = {
   dbContext: 'ORM',
   httpResolveLog: true,
   defaultUserMask: 'UNKNOWN',
-  morganFormat: '[:user] v:http-version :remote-addr - [:remote-user] :referrer - :method :url :status, res-time: :response-time ms. ":user-agent"',
+  // morganFormat: '[:user] v:http-version :remote-addr - [:remote-user] :referrer - :method :url :status, res-time: :response-time ms. ":user-agent"',
   dirname: './logs',
-  fileName: '.%DATE%.log',
+  fileName: '.%DATE%.json',
   auditFile: './logs/audit.json',
   datePattern: 'YYYY-MM-DD',
   zippedArchive: true,

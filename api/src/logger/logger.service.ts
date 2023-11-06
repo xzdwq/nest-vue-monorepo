@@ -5,13 +5,13 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class LoggerService {
   public async writeLog(data: LoggerDto): Promise<void> {
-    logger[data?.level || 'info'](data, data.context || LoggerService.name);
+    logger[data?.level || 'info'](data, LoggerService.name);
     // console.log(logger.transports[0])
-    const r = await new Promise((resolve, reject) => {
+    const r = new Promise((resolve, reject) => {
       logger.query({
         start: 0,
         limit: 10,
-        fields: ['message']
+        fields: ['level']
       }, (error, logs) => {
         if (error) {
           return reject(error);
@@ -20,6 +20,8 @@ export class LoggerService {
         resolve(logs);
       });
     });
-    console.log(r)
+    r.then((d) => {
+      console.log(d)
+    })
   }
 }

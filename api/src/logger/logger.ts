@@ -1,8 +1,28 @@
 import { loggerConfig } from '@/config/logger.config';
 import { Logger } from '@nestjs/common';
-import { SPLAT } from 'triple-beam';
 import * as winston from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
+
+const preapareLog = ((entry: any, defaultContext: string) => {
+  const splat = entry[Symbol.for('splat')];
+  if (splat) {
+    entry.source = Array.isArray(splat) ? splat[0] : splat?.toString();
+  } else {
+    entry.source = null;
+  }
+  entry.context = entry?.message?.context || defaultContext;
+
+  let message = entry.message;
+  if (typeof message === 'object') message = `DATA-STRINGIFY: ${JSON.stringify(message)}`;
+
+  try {
+    Logger[entry.level](message, entry.context);
+  } catch (e: unknown) {
+    Logger.log(message, entry.context);
+  };
+
+  return entry;
+}); 
 
 const winstonOptions = (defaultContext: string): winston.LoggerOptions => {
   return {
@@ -16,27 +36,15 @@ const winstonOptions = (defaultContext: string): winston.LoggerOptions => {
         maxFiles: loggerConfig.maxFiles,
         auditFile: loggerConfig.auditFile,
         dirname: loggerConfig.dirname,
+        json: true,
         format: winston.format.combine(
-          winston.format.simple(),
+          winston.format(preapareLog)(defaultContext),
           winston.format.errors({ stack: true }),
-          winston.format.metadata(),
           winston.format.timestamp({
             format: loggerConfig.format
           }),
           winston.format.ms(),
-          winston.format.printf(({ timestamp, ms, level, message, ...metadata }) => {
-            const context = `${metadata[SPLAT] || defaultContext}`;
-
-            if (typeof message === 'object') message = `DATA-STRINGIFY: ${JSON.stringify(message)}`;
-
-            try {
-              Logger[level](message, context);
-            } catch (e: unknown) {
-              Logger.log(message, context);
-            };
-
-            return `${timestamp} ${ms} ${level.toUpperCase()} [${context}] ${message}`;
-          }),
+          winston.format.json({ space: 2, maximumDepth: 2 }),
         ),
       }),
     ]
