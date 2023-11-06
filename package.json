@@ -1,0 +1,22 @@
+{
+  "name": "mdm2-monorepo",
+  "private": true,
+  "workspaces": [
+    "./api/*",
+    "./app/*"
+  ],
+  "scripts": {
+    "dev": "pnpm run -r --parallel --stream dev",
+    "api:build": "pnpm --filter=@mdm2/api build",
+    "api:start:prod": "pnpm --filter=@mdm2/api start:prod",
+    "api:migrate:generate": "pnpm --filter=@mdm2/api migrate:generate",
+    "api:migrate:create": "pnpm --filter=@mdm2/api migrate:create",
+    "api:migrate:run": "pnpm --filter=@mdm2/api migrate:run",
+    "app:build": "pnpm --filter=@mdm2/app build"
+  },
+  "engines": {
+    "node": ">=16.18.1",
+    "pnpm": ">=8.5.0"
+  },
+  "packageManager": "pnpm@8.5.0"
+}

@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  mdm2:
+    image: mdm2:latest
+    container_name: mdm2
+    build:
+      context: ../../
+      dockerfile: docker/development/Dockerfile
+    ports:
+      - 7000:7000
+    env_file:
+      - '../../api/.env'
+    environment:
+      DB_HOST: host.docker.internal
+
+  mdm2-ui:
+    image: nginx:latest
+    container_name: mdm2-ui
+    build:
+      context: ../../
+      dockerfile: docker/development/Dockerfile.nginx
+    ports:
+      - 4444:80
+    depends_on:
+      - mdm2
