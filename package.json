@@ -12,7 +12,16 @@
     "api:migrate:generate": "pnpm --filter=@mdm2/api migrate:generate",
     "api:migrate:create": "pnpm --filter=@mdm2/api migrate:create",
     "api:migrate:run": "pnpm --filter=@mdm2/api migrate:run",
-    "app:build": "pnpm --filter=@mdm2/app build"
+    "app:build": "pnpm --filter=@mdm2/app build",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "6.7.3",
+    "@typescript-eslint/parser": "6.7.3",
+    "eslint": "8.40.0",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-plugin-vue": "9.18.1",
+    "prettier": "2.8.8"
   },
   "engines": {
     "node": ">=16.18.1",

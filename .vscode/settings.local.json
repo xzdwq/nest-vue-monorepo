@@ -1,0 +1,9 @@
+{
+  "eslint.enable": true,
+  "eslint.format.enable": false,
+  "eslint.experimental.useFlatConfig": true,
+  "eslint.workingDirectories": [{ "pattern": "./api/*" }, { "pattern": "./app/*" }],
+  "eslint.options": {
+    "overrideConfigFile": "./eslintrc.cjs"
+  }
+}
