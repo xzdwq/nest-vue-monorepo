@@ -18,24 +18,24 @@ export type DatabaseConfig = {
 
 class EnvironmentVariablesValidator {
   @IsString()
-  DB_TYPE: string;
+    DB_TYPE: string;
 
   @IsString()
-  DB_HOST: string;
+    DB_HOST: string;
 
   @IsInt()
   @Min(0)
   @Max(65535)
-  DB_PORT: number;
+    DB_PORT: number;
 
   @IsString()
-  DB_USER: string;
+    DB_USER: string;
 
   @IsString()
-  DB_PASSWORD: string;
+    DB_PASSWORD: string;
 
   @IsString()
-  DB_NAME: string;
+    DB_NAME: string;
 }
 
 export default registerAs<DatabaseConfig>('db', () => {

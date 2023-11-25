@@ -51,7 +51,7 @@ export default defineConfig((): UserConfig => {
         output: {
           entryFileNames: '[name].[hash].entry.js',
           chunkFileNames: '[name].[hash].js',
-          assetFileNames: ({ name }) => {
+          assetFileNames: ({ name }): string => {
             let extPath = '[ext]';
             if (/\.(gif|jpe?g|png|svg|tiff|bmp|ico)$/.test(name ?? '')) {
               extPath = 'images';

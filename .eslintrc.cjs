@@ -34,6 +34,8 @@ module.exports = {
       },
     ],
     'comma-dangle': ['error', 'always-multiline'],
+    quotes: [2, 'single', { avoidEscape: true }],
+    indent: ['error', 2],
     'no-var': 'error',
     'no-trailing-spaces': 'error',
     'no-useless-catch': 'error',

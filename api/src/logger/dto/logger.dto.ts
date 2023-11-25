@@ -3,19 +3,19 @@ import { IsOptional, IsString } from 'class-validator';
 export class LoggerDto {
   @IsOptional()
   @IsString()
-  level?: string;
+    level?: string;
 
   @IsOptional()
   @IsString()
-  context?: string;
+    context?: string;
 
   @IsString()
-  source: string;
+    source: string;
 
   @IsString()
-  info: string;
+    info: string;
 
   @IsOptional()
   @IsString()
-  error?: string;
+    error?: string;
 }

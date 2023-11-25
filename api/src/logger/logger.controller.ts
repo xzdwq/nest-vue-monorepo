@@ -1,20 +1,20 @@
-import { LoggerDto } from "@/logger/dto/logger.dto";
-import { LoggerService } from "@/logger/logger.service";
-import { Body, Controller, Get, Post, Request, Version } from "@nestjs/common";
+import { LoggerDto } from '@/logger/dto/logger.dto';
+import { LoggerService } from '@/logger/logger.service';
+import { Body, Controller, Get, Post, Version } from '@nestjs/common';
 
-@Controller("logger")
+@Controller('logger')
 export class LoggerController {
-	constructor(private readonly loggerService: LoggerService) {}
+  constructor(private readonly loggerService: LoggerService) {}
 
-	@Post()
-	@Version("1")
-	writeLog(@Body() data: LoggerDto): void {
-		this.loggerService.writeLog(data);
-	}
+  @Post()
+  @Version('1')
+  writeLog(@Body() data: LoggerDto): void {
+    this.loggerService.writeLog(data);
+  }
 
-	@Get()
-	@Version("1")
-	showLogs(@Request() request: any): Promise<unknown> {
-		return this.loggerService.showLogs();
-	}
+  @Get()
+  @Version('1')
+  showLogs(): Promise<unknown> {
+    return this.loggerService.showLogs();
+  }
 }

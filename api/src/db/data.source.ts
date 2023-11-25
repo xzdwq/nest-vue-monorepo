@@ -32,15 +32,14 @@ const DataSourceConfig = {
   namingStrategy: new SnakeNamingStrategy(),
 } as DataSourceOptions;
 
-const connToDS = async (): Promise<DataSource> => {
+const connToDS = async(): Promise<DataSource> => {
   const dataSourseConn = new DataSource(DataSourceConfig);
   try {
     if (!dataSourseConn.isInitialized) await dataSourseConn.initialize();
   } catch (err) {
     console.error('Error during Data Source initialization', err);
-  } finally {
-    return dataSourseConn;
   }
+  return dataSourseConn;
 };
 
 export const dataSource = connToDS();
